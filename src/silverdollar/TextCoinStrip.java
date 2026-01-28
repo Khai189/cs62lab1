@@ -2,14 +2,16 @@
  * CS062: silverdollar
  *	a simple coin-moving game implemented with ArrayLists
  *
- * @author YOUR-NAME-HERE
+ * @author Khai Mohammad
  */
 
 package silverdollar;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TextCoinStrip {
 
@@ -61,7 +63,11 @@ public class TextCoinStrip {
      * @return the string representation
      */
     public String toString() {
-        // TODO: fill this
+        String returnStr = "";
+        for(boolean state : theStrip){
+            returnStr += (state? 'o' : '_');
+        }
+        return returnStr;
     }
 
     /**
@@ -72,8 +78,15 @@ public class TextCoinStrip {
      * @return true if the move is legal
      */
     public boolean isLegalMove(int start, int distance) {
-        // TODO: implement this method
-        return false;
+        if(start >= theStrip.size() || start < 0 || start - distance < 0 || distance == 0 || !theStrip.get(start)){
+            return false;
+        }
+        for(int i = 1; i<=distance;i++){
+            if(theStrip.get(start-i)){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -83,8 +96,10 @@ public class TextCoinStrip {
      * @param distance how far the coin is to move pre-condition: the move must be a legal one
      */
     public void makeMove(int start, int distance) {
-        // TODO: implement this method
-
+        theStrip.remove(start);
+        theStrip.add(start, false);
+        theStrip.remove(start-distance);
+        theStrip.add(start-distance, true);
     }
 
     /**
@@ -93,7 +108,20 @@ public class TextCoinStrip {
      * @return true if there are no more moves
      */
     public boolean gameIsOver() {
-        return false; // TODO: replace this with real code
+        boolean rightHandSide = false;
+        for(int i = theStrip.size() - 1; i>=0;i--){
+            if(rightHandSide){
+                if(!theStrip.get(i)){
+                    return false;
+                }
+            }
+            if(theStrip.get(i)){
+                rightHandSide = true;
+            }
+            
+        }
+        return true;
+
     }
 
     /**

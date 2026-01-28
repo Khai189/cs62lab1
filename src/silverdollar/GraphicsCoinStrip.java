@@ -2,7 +2,7 @@
  * CS062: silverdollar.GraphicsCoinStrip
  * A simple coin-moving game implemented with ArrayLists
  *
- * @author YOUR-NAME-HERE
+ * @author Khai Mohammad
  */
 package silverdollar;
 
